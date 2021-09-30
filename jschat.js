@@ -42,7 +42,9 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
   $.noConflict();
   jQuery(document).ready(function ($) {
 
-    jschat.open = () => {
+    jschat.fn = {};
+
+    jschat.fn.open = () => {
       $(jschat.el.main).addClass('open');
       $(jschat.el.main).removeClass('close');
 
@@ -51,8 +53,6 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
         jschat.fn.goto(jschat.start_script);
       }
     }
-
-    jschat.fn = {};
 
     jschat.fn.restart = () => {
       $(jschat.el.main).addClass('open');
@@ -228,7 +228,7 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
 
       document.querySelectorAll(jschat.triggers).forEach(el => {
         el.addEventListener('click', (e) => {
-          jschat.open();
+          jschat.fn.open();
         })
       });
 
