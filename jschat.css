@@ -248,6 +248,7 @@
   display: flex;
   gap: .5rem;
   margin: .8rem 0;
+  flex-wrap: wrap;
 }
 #jschat .body>ul>li ul.options.selected {
   pointer-events: none;
@@ -257,6 +258,7 @@
   padding: .2rem .5rem;
   border-radius: 1rem;
   font-size: .8rem;
+  white-space: nowrap;
   color: var(--jschat-primary-color);
   border: 1px solid var(--jschat-primary-color);
 }
@@ -327,10 +329,11 @@
 
 @media only screen and (max-width: 600px) {
   #jschat {
-    right: 1rem;
-    left: 1rem;
-    top: 1rem;
-    bottom: 1rem;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0;
     width: auto;
     height: auto;
     max-width: none;
@@ -342,10 +345,10 @@
   }
   #jschat.close {
     display: flex;
-    right: 1rem;
-    left: 1rem;
-    top: 1rem;
-    bottom: 1rem;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
   }
   @keyframes showChat {
     0% {
