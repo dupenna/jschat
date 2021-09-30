@@ -29,11 +29,11 @@ function require(file, callback) {
 
 if (!jschat) var jschat = {};
 
-jschat.path = jschat.path || 'https://eduardo.penna.guru/jschat/';
+jschat.path = jschat.path || 'https://dupenna.github.io/jschat/';
 
 var css = document.createElement("link")
 css.setAttribute("rel", "stylesheet")
-css.setAttribute("type", "text/css")
+// css.setAttribute("type", "text/css")
 css.setAttribute("href", jschat.path+"jschat.css")
 document.head.appendChild(css);
 
