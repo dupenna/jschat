@@ -1,0 +1,376 @@
+:root {
+  --jschat-primary-color: #999;
+  --jschat-secondary-color: #EEE;
+  --jschat-text-color: #000;
+}
+
+#jschat * {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  list-style: none;
+}
+
+#jschat {
+  position: fixed;
+  bottom: -2rem;
+  right: 1rem;
+  width: 100%;
+  height: 0%;
+  max-width: 400px;
+  max-height: 650px;
+  background-color: var(--jschat-secondary-color);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: .2rem .2rem 1rem #999;
+  overflow: hidden;
+  z-index: 9999;
+}
+#jschat.open {
+  animation: showChat 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes showChat {
+  0% {
+    bottom: -2rem;
+    opacity: 0;
+    height: 100%;
+  }
+
+  100% {
+    bottom: 1rem;
+    opacity: 1;
+    height: 100%;
+  }
+}
+
+#jschat.close {
+  animation: hideChat 1s;
+  animation-fill-mode: forwards;
+  bottom: 1rem;
+  opacity: 1;
+  height: 100%;
+}
+@keyframes hideChat {
+  0% {
+    bottom: 1rem;
+    opacity: 1;
+  }
+
+  99% {
+    bottom: -2rem;
+    opacity: 0;
+    height: 100%;
+  }
+
+  100% {
+    bottom: -2rem;
+    opacity: 0;
+    height: 0%;
+  }
+}
+
+#jschat .header {
+  position: relative;
+  min-height: 3rem;
+  background-color: var(--jschat-primary-color);
+  display: flex;
+  align-items: center;
+}
+
+#jschat .body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  overflow: scroll;
+  flex-direction: column-reverse;
+}
+
+#jschat .footer {
+  position: relative;
+  min-height: 3rem;
+  background-color: var(--jschat-primary-color);
+  display: flex;
+  align-items: center;
+}
+
+#jschat .header img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  margin: .5rem .7rem;
+}
+
+#jschat .header.online::before {
+  content: "";
+  position: absolute;
+  top: .5rem;
+  left: 3rem;
+  width: 10px;
+  height: 10px;
+  background-color: #090;
+  border: 1px solid #FFF;
+  border-radius: 50%;
+}
+
+#jschat .header span {
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--jschat-secondary-color);
+  flex: 1;
+}
+
+#jschat .header a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  margin: .5rem .7rem;
+  position: relative;
+  height: 3rem;
+  width: 3rem;
+  opacity: 0.3;
+}
+#jschat .header a:hover {
+  opacity: 1;
+}
+#jschat .header a:before, #jschat .header a:after {
+  position: absolute;
+  /* left: 15px;
+  top: 5px; */
+  content: ' ';
+  height: 2rem;
+  width: 2px;
+  background-color: var(--jschat-text-color);
+}
+#jschat .header a:before {
+  transform: rotate(45deg);
+}
+#jschat .header a:after {
+  transform: rotate(-45deg);
+}
+
+#jschat .body>ul {
+  display: block;
+  width: 100%;
+  padding-bottom: .5rem;
+}
+
+#jschat .body>ul>li {
+  display: block;
+  animation: displayMessage linear 1s;
+  margin: .7rem;
+}
+
+@keyframes displayMessage {
+  0% {
+    max-height: 0;
+    margin: 0;
+    opacity: 0;
+  }
+
+  40% {
+    max-height: 100px;
+    margin: .7rem;
+    opacity: 0;
+  }
+
+  100% {
+    max-height: 100px;
+    margin: .7rem;
+    opacity: 1;
+  }
+}
+
+#jschat .body>ul>li.me {
+  text-align: right;
+}
+
+#jschat .body>ul>li div.message {
+  display: inline-block;
+  position: relative;
+  min-width: 100px;
+  max-width: 70%;
+  background: #FFF;
+  box-shadow: .2rem .2rem .5rem #999;
+  border-radius: .5rem;
+}
+
+#jschat .body>ul>li.bot div.message {
+  margin-right: 2rem;
+  background-color: #EEE;
+}
+
+#jschat .body>ul>li.me div.message {
+  margin-left: 2rem;
+}
+
+#jschat .body>ul>li div.message span {
+  display: block;
+  text-align: left;
+  overflow-wrap: break-word;
+}
+
+#jschat .body>ul>li div.message span.text {
+  font-size: 14px;
+  margin: 6px 7px;
+  white-space: pre-line;
+}
+
+#jschat .body>ul>li div.message span.text:after {
+  content: ' ';
+  width: 50px;
+  float: right;
+  height: 21px;
+  background-color: red;
+  visibility: hidden;
+}
+
+#jschat .body>ul>li div.message span.time {
+  position: absolute;
+  bottom: 3px;
+  right: 6px;
+  font-weight: 300;
+  text-align: right;
+  font-size: 10px;
+  opacity: .7;
+}
+
+#jschat .body>ul>li ul.options {
+  display: flex;
+  gap: .5rem;
+  margin: .8rem 0;
+}
+#jschat .body>ul>li ul.options.selected {
+  pointer-events: none;
+}
+
+#jschat .body>ul>li ul.options a {
+  padding: .2rem .5rem;
+  border-radius: 1rem;
+  font-size: .8rem;
+  color: var(--jschat-primary-color);
+  border: 1px solid var(--jschat-primary-color);
+}
+#jschat .body>ul>li ul.options a:hover, #jschat .body>ul>li ul.options a.selected {
+  color: var(--jschat-secondary-color);
+  background-color: var(--jschat-primary-color);
+}
+
+#jschat .footer form {
+  display: flex;
+  width: 100%;
+  padding: .5rem .7rem;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+}
+
+#jschat .footer form.disabled {
+  pointer-events: none;
+  opacity: .5;
+}
+
+#jschat .footer input {
+  flex: 1;
+  height: 2rem;
+  padding: 0 1rem;
+  border-radius: 1rem;
+  background-color: var(--jschat-secondary-color);
+}
+
+#jschat .footer button {
+  color: var(--jschat-secondary-color);
+  background-color: var(--jschat-primary-color);
+  cursor: pointer;
+  margin-left: 6px;
+  margin-right: 3px;
+  margin-top: -3px;
+  width: 14px;
+  height: 18px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+#jschat .footer button:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -17px;
+  width: 0;
+  height: 0;
+  border-top: solid 18px transparent;
+  border-bottom: solid 18px currentColor;
+  border-left: solid 7px transparent;
+  border-right: solid 7px transparent;
+}
+#jschat .footer button:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 0;
+  height: 0;
+  color: var(--jschat-primary-color);
+  border-top: solid 5px transparent;
+  border-bottom: solid 5px currentColor;
+  border-left: solid 7px transparent;
+  border-right: solid 7px transparent;
+}
+
+@media only screen and (max-width: 600px) {
+  #jschat {
+    right: 1rem;
+    left: 1rem;
+    top: 1rem;
+    bottom: 1rem;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    display: none;
+  }
+  #jschat.open {
+    display: flex;
+  }
+  #jschat.close {
+    display: flex;
+    right: 1rem;
+    left: 1rem;
+    top: 1rem;
+    bottom: 1rem;
+  }
+  @keyframes showChat {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes hideChat {
+    0% {
+      opacity: 1;
+      height: auto;
+    }
+  
+    99% {
+      opacity: 0;
+      height: auto;
+    }
+  
+    100% {
+      opacity: 0;
+      display: none;
+      height: 0;
+    }
+  }
+}
