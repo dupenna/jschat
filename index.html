@@ -12,99 +12,273 @@
   <button id="open_chat">chat</button>
 
   <script type="text/javascript">
+    // const script = [{
+    //   name: 'welcome',
+    //   value: 'Seja bem-vindo a ${company}!',
+    //   delay_before: 1500,
+    //   goto: 'get-name',
+    // }, {
+    //   name: 'get-name',
+    //   value: 'Informe seu nome:',
+    //   delay_before: 1500,
+    //   goto: null,
+    //   params: {
+    //     input: {
+    //       name: 'name',
+    //       placeholder: 'Digite seu nome...',
+    //       goto: 'get-email',
+    //     }
+    //   }
+    // }, {
+    //   name: 'get-email',
+    //   value: 'Ótimo, ${name}! Agora seu e-mail:',
+    //   delay_before: 1500,
+    //   goto: null,
+    //   params: {
+    //     input: {
+    //       name: 'email',
+    //       placeholder: 'Digite seu e-maill...',
+    //       goto: 'get-country',
+    //     }
+    //   }
+    // }, {
+    //   name: 'get-country',
+    //   value: '${name}, registrei o e-mail ${email}. Em qual país você reside?',
+    //   delay_before: 1500,
+    //   goto: null,
+    //   params: {
+    //     options: [{
+    //       name: 'country',
+    //       label: 'Brasil',
+    //       text: 'Moro no Brasil',
+    //       goto: 'confirm',
+    //     },
+    //     {
+    //       name: 'country',
+    //       label: 'EUA',
+    //       text: 'Moro nos Estados Unidos',
+    //       goto: 'confirm',
+    //     }]
+    //   }
+    // }, {
+    //   name: 'confirm',
+    //   value: 'Confirmando seus dados: \nNome: ${name} \nE-mail: ${email}\n País: ${country}',
+    //   delay_before: 1500,
+    //   goto: 'ok?',
+    // }, {
+    //   name: 'ok?',
+    //   value: 'Os dados estão corretos?',
+    //   delay_before: 1500,
+    //   goto: null,
+    //   params: {
+    //     options: [{
+    //       name: 'confirm',
+    //       label: 'Sim',
+    //       text: 'Estão corretos',
+    //       goto: 'ok',
+    //     },
+    //     {
+    //       name: 'confirm',
+    //       label: 'Não',
+    //       text: 'Não estão',
+    //       goto: 'nok',
+    //     }]
+    //   }
+    // }, {
+    //   name: 'ok',
+    //   value: 'Perfeito! Obrigado pela conversa.',
+    //   delay_before: 1500,
+    //   goto: 'exit',
+    // }, {
+    //   name: 'exit',
+    //   value: 'Até mais!',
+    //   delay_before: 1500,
+    //   goto: null,
+    // }, {
+    //   name: 'nok',
+    //   value: 'Sem problema. Vamos tentar novamente.',
+    //   delay_before: 1500,
+    //   goto: 'get-name',
+    // }];
+
     const script = [{
       name: 'welcome',
-      value: 'Seja bem-vindo a ${company}!',
+      value: 'Hi, hier ist Adrienn von Bäder Schramm aus München. Ich habe gesehen, dass du dich für einen Job bei uns interessierst. Ist das richtig? Ja?',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        options: [{
+          name: 'match-interest',
+          label: 'Ja',
+          text: 'Ja',
+          goto: 'match-job',
+        },
+        {
+          name: 'match-interest',
+          label: 'Nein',
+          text: 'Nein',
+          goto: 'exit',
+        }]
+      }
+    }, {
+      name: 'match-job',
+      value: 'Perfekt! Du suchst eine Stelle als ${job_title}. Ist das auch richtig, ja?',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        options: [{
+          name: 'match-job',
+          label: 'Ja',
+          text: 'Ja',
+          goto: 'experience-time',
+        },
+        {
+          name: 'match-job',
+          label: 'Nein',
+          text: 'Nein',
+          goto: 'exit',
+        }]
+      }
+    }, {
+      name: 'experience-time',
+      value: 'Danke! Wie lange hast du schon als ${job_title} gearbeitet. 0 / 2 / 5 oder mehr Jahre?',
       delay_before: 1500,
       goto: 'get-name',
+      params: {
+        options: [{
+          name: 'experience-time',
+          label: '0 Jahre',
+          text: '0 Jahre',
+          goto: 'language-experience',
+        },
+        {
+          name: 'experience-time',
+          label: '1-2 Jahre',
+          text: '1-2 Jahre',
+          goto: 'language-experience',
+        },
+        {
+          name: 'experience-time',
+          label: '2-5 Jahre',
+          text: '2-5 Jahre',
+          goto: 'language-experience',
+        },
+        {
+          name: 'experience-time',
+          label: '5-10 Jahre',
+          text: '5-10 Jahre',
+          goto: 'language-experience',
+        },
+        {
+          name: 'experience-time',
+          label: '>10 Jahre',
+          text: '>10 Jahre',
+          goto: 'language-experience',
+        }]
+      }
     }, {
-      name: 'get-name',
-      value: 'Informe seu nome:',
+      name: 'language-experience',
+      value: 'Super! Und sprichst du Deutsch in Wort und Schrift? A-Level / BLevel / Muttersprache?',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        options: [{
+          name: 'language-experience',
+          label: 'Keine',
+          text: 'Keine',
+          goto: 'drivers-license',
+        },
+        {
+          name: 'language-experience',
+          label: 'A-Level',
+          text: 'A-Level',
+          goto: 'drivers-license',
+        },
+        {
+          name: 'language-experience',
+          label: 'B-Level',
+          text: 'B-Level',
+          goto: 'drivers-license',
+        },
+        {
+          name: 'language-experience',
+          label: 'Muttersprache',
+          text: 'Muttersprache',
+          goto: 'drivers-license',
+        }]
+      }
+    }, {
+      name: 'drivers-license',
+      value: 'Danke! Ja und eine Führerschein hast du auch oder?',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        options: [{
+          name: 'drivers-license',
+          label: 'Ja',
+          text: 'Ja',
+          goto: 'name',
+        },
+        {
+          name: 'drivers-license',
+          label: 'Nein',
+          text: 'Nein',
+          goto: 'name',
+        }]
+      }
+    }, {
+      name: 'name',
+      value: 'Ok! Wie ist eigenlich dein Name?',
       delay_before: 1500,
       goto: null,
       params: {
         input: {
           name: 'name',
-          placeholder: 'Digite seu nome...',
-          goto: 'get-email',
+          placeholder: '',
+          goto: 'schedule',
         }
       }
     }, {
-      name: 'get-email',
-      value: 'Ótimo, ${name}! Agora seu e-mail:',
-      delay_before: 1500,
-      goto: null,
-      params: {
-        input: {
-          name: 'email',
-          placeholder: 'Digite seu e-maill...',
-          goto: 'get-country',
-        }
-      }
-    }, {
-      name: 'get-country',
-      value: '${name}, registrei o e-mail ${email}. Em qual país você reside?',
+      name: 'schedule',
+      value: 'Das klingt ja super! Wann hast du morgen Zeit für ein Telefonat?',
       delay_before: 1500,
       goto: null,
       params: {
         options: [{
-          name: 'country',
-          label: 'Brasil',
-          text: 'Moro no Brasil',
+          name: 'schedule-time',
+          label: 'Morgen',
+          text: 'Morgen',
           goto: 'confirm',
         },
         {
-          name: 'country',
-          label: 'EUA',
-          text: 'Moro nos Estados Unidos',
+          name: 'schedule-time',
+          label: 'Abend',
+          text: 'Abend',
+          goto: 'confirm',
+        }, 
+        {
+          name: 'schedule-time',
+          label: 'Nacht',
+          text: 'Nacht',
           goto: 'confirm',
         }]
       }
     }, {
       name: 'confirm',
-      value: 'Confirmando seus dados: \nNome: ${name} \nE-mail: ${email}\n País: ${country}',
-      delay_before: 1500,
-      goto: 'ok?',
-    }, {
-      name: 'ok?',
-      value: 'Os dados estão corretos?',
+      value: 'Super! Ich gebe es gleich weiter und wir freuen uns jetzt schon auf das Telefonat mit dir! Beste Grüße, Adrienn',
       delay_before: 1500,
       goto: null,
-      params: {
-        options: [{
-          name: 'confirm',
-          label: 'Sim',
-          text: 'Estão corretos',
-          goto: 'ok',
-        },
-        {
-          name: 'confirm',
-          label: 'Não',
-          text: 'Não estão',
-          goto: 'nok',
-        }]
-      }
-    }, {
-      name: 'ok',
-      value: 'Perfeito! Obrigado pela conversa.',
-      delay_before: 1500,
-      goto: 'exit',
     }, {
       name: 'exit',
-      value: 'Até mais!',
+      value: 'Vielen Dank! Wir verschieben Ihren Kontakt in unsere Datenbank. Aber wir können Ihre Bewerbung derzeit nicht verschieben. Liebe Grüße, Adrienn.',
       delay_before: 1500,
       goto: null,
-    }, {
-      name: 'nok',
-      value: 'Sem problema. Vamos tentar novamente.',
-      delay_before: 1500,
-      goto: 'get-name',
     }];
 
+
     var jschat = {
-      // path:	'./',
-      bot_name: 'Joana Silva',
-      bot_avatar: 'https://i.pravatar.cc/100',
+      bot_name: 'Adrienn',
+      bot_avatar: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.bigspeak.com%2Fwp-content%2Fuploads%2F2015%2F04%2FLiz_Wiseman_Headshot_2-196x196.jpg&f=1&nofb=1',
       colors: {
         primary: '#900',
         secondary: '#FFF',
@@ -114,11 +288,11 @@
       script: script,
       start_script: 'welcome',
       values: {
-        'company': 'Tração.OnLine',
+        'job_title': 'Anlagenmechaniker',
       },
     };
   </script>
-  <script src="./jschat.js"></script>
+  <script src="https://dupenna.github.io/jschat/jschat.js"></script>
 
 </body>
 
