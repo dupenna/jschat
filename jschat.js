@@ -37,7 +37,7 @@ css.setAttribute("rel", "stylesheet")
 css.setAttribute("href", jschat.path+"jschat.css")
 document.head.appendChild(css);
 
-// require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
+require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
 
   $.noConflict();
   jQuery(document).ready(function ($) {
@@ -232,4 +232,4 @@ document.head.appendChild(css);
     jschat.load();
 
   });
-// });
+});
