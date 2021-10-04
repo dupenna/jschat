@@ -2,6 +2,12 @@
 
 A simple chat bot with decision tree and user input that you can add to any website.
 
+You can see a working sample [here](https://dupenna.github.io/jschat/sample.html).
+
+<p align="center">
+  <img src="sample.gif">
+</p>
+
 ## Implementation
 
 Add this before the `</body>` of your html.

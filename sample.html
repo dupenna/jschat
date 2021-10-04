@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample jschat</title>
+</head>
+
+<body>
+
+  <button id="open_chat">chat</button>
+
+  <script type="text/javascript">
+    const script = [{
+      name: 'welcome',
+      value: 'Welcome to ${company_name}!',
+      delay_before: 1500,
+      goto: 'get-name',
+    }, {
+      name: 'get-name',
+      value: 'Please, type your first name on the field below.',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        input: {
+          name: 'name',
+          type: 'text',
+          placeholder: 'Enter your name...',
+          validation: {
+            pattern: '[A-zÀ-ú ]*',
+            pattern_message: 'Only letters and spaces.',
+            min: 3,
+            max: 100,
+          },
+          goto: 'get-email',
+        }
+      }
+    }, {
+      name: 'get-email',
+      value: 'Great, ${name}! Now, what is your e-mail?',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        input: {
+          name: 'email',
+          placeholder: 'Type your e-maill...',
+          goto: 'get-birth',
+        }
+      }
+    }, {
+      name: 'get-birth',
+      value: 'What is your birth date?',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        input: {
+          name: 'birth',
+          type: 'date',
+          goto: 'get-country',
+        }
+      }
+    }, {
+      name: 'get-country',
+      value: 'Where do you live?',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        options: [{
+          name: 'country',
+          label: 'Brazil',
+          text: 'I live in Brazil',
+          goto: 'confirm',
+        },
+        {
+          name: 'country',
+          label: 'USA',
+          text: 'I live in US',
+          goto: 'confirm',
+        }]
+      }
+    }, {
+      name: 'confirm',
+      value: 'Cofirming: \nName: ${name} \nE-mail: ${email}\nCountry: ${country}\nBirth: ${birth}',
+      delay_before: 1500,
+      goto: 'ok?',
+    }, {
+      name: 'ok?',
+      value: 'Is everything ok?',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        options: [{
+          name: 'confirm',
+          label: 'Yes',
+          text: 'Yeah',
+          goto: 'ok',
+        },
+        {
+          name: 'confirm',
+          label: 'No',
+          text: 'No',
+          goto: 'nok',
+        }]
+      }
+    }, {
+      name: 'ok',
+      value: 'Perfect, thank you!',
+      delay_before: 1500,
+      goto: 'exit',
+    }, {
+      name: 'exit',
+      value: 'Bye bye!',
+      delay_before: 1500,
+      goto: null,
+    }, {
+      name: 'nok',
+      value: 'No problem. Let\'s try again.',
+      delay_before: 1500,
+      goto: 'get-name',
+    }];
+
+    var jschat = {
+      path: './',
+      bot_name: ' J. S. Bot',
+      bot_avatar: 'https://i.pravatar.cc/100',
+      colors: {
+        primary: '#900',
+        secondary: '#FFF',
+        text: '#FFF',
+      },
+      triggers:	'#open_chat',
+      script: script,
+      start_script: 'welcome',
+      values: {
+        'company_name': 'JSChat',
+      },
+    };
+  </script>
+  <script src="./jschat.js"></script>
+
+</body>
+
+</html>
