@@ -89,8 +89,14 @@
   display: flex;
   align-items: flex-end;
   height: 100%;
-  overflow: scroll;
   flex-direction: column-reverse;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#jschat .body::-webkit-scrollbar {
+  display: none;
 }
 
 #jschat .footer {

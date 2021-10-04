@@ -25,7 +25,14 @@
       params: {
         input: {
           name: 'name',
+          type: 'text',
           placeholder: 'Digite seu nome...',
+          validation: {
+            pattern: '[A-zÀ-ú ]*',
+            pattern_message: 'Somente letras e espaços são aceitos.',
+            min: 3,
+            max: 100,
+          },
           goto: 'get-email',
         }
       }
@@ -38,6 +45,18 @@
         input: {
           name: 'email',
           placeholder: 'Digite seu e-maill...',
+          goto: 'get-birth',
+        }
+      }
+    }, {
+      name: 'get-birth',
+      value: 'Qual a data do seu nascimento?',
+      delay_before: 1500,
+      goto: null,
+      params: {
+        input: {
+          name: 'email',
+          type: 'date',
           goto: 'get-country',
         }
       }

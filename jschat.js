@@ -59,7 +59,14 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
       $(jschat.el.main).removeClass('close');
 
       $(jschat.el.chat).empty();
+
+      $(jschat.el.form).target.reset();
       $(jschat.el.form).addClass('disabled');
+      $(jschat.el.input).attr('placeholder', '');
+      $(jschat.el.input).attr('type', 'text');
+      $(jschat.el.input).blur();
+
+      $(jschat.el.input).addClass('disabled');
 
       jschat.started = true;
       jschat.fn.goto(jschat.start_script);
@@ -113,23 +120,36 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
         const input = params.input;
 
         $(jschat.el.form).removeClass('disabled');
-        $(jschat.el.input).attr('placeholder', input.placeholder);
+        $(jschat.el.input).attr('placeholder', input.placeholder || '');
+        $(jschat.el.input).attr('type', input.type || 'text');
+
+        $(jschat.el.input).attr('maxlength', input.validation?.max || '');
+        $(jschat.el.input).attr('minlength', input.validation?.min || '');
+        $(jschat.el.input).attr('title', input.validation?.pattern_message || '');
+        input.validation?.pattern ? $(jschat.el.input).attr('pattern', input.validation.pattern) : $(jschat.el.input).removeAttr('pattern');
+
         $(jschat.el.input).focus();
 
         jschat.el.form.addEventListener('submit', listener = (e) => {
           e.preventDefault();
           const text = jschat.el.input.value.trim();
-          if (text.length > 0) {
-            jschat.values[input.name] = text;
-            jschat.fn.sendMessage(text, 'me');
-            $(jschat.el.form).addClass('disabled');
-            $(jschat.el.input).attr('placeholder', '');
-            $(jschat.el.input).blur();
-            jschat.el.form.removeEventListener('submit', listener);
-            e.target.reset();
-            jschat.fn.goto(input.goto);
-            console.log(jschat.values);
+
+          if (text.length == 0) return;
+
+          if (params.input.validation && params.input.validation.regex) {
+
           }
+
+          jschat.values[input.name] = text;
+          jschat.fn.sendMessage(text, 'me');
+          $(jschat.el.form).addClass('disabled');
+          $(jschat.el.input).attr('placeholder', '');
+          $(jschat.el.input).blur();
+          $(jschat.el.input).attr('type', 'text');
+          e.target.reset();
+          jschat.el.form.removeEventListener('submit', listener);
+          jschat.fn.goto(input.goto);
+          console.log(jschat.values);
         })
 
       }
@@ -137,8 +157,8 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
       $(jschat.el.chat).append(message);
     }
 
-    jschat.fn.goto = (step_name) => {
-      const steps = script.filter(step => step.name == step_name);
+    jschat.fn.goto = (target) => {
+      const steps = script.filter(step => step.name == target);
 
       if (steps.length === 0) return;
 
@@ -163,6 +183,10 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
         jschat.fn.sendMessage(text, 'bot', params);
         if (next) jschat.fn.goto(next);
       }, delay);
+    }
+
+    jschat.regex = {
+      email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     }
 
     jschat.fn.load = () => {
