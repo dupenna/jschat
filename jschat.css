@@ -31,6 +31,7 @@
   overflow: hidden;
   z-index: 9999;
 }
+
 #jschat.open {
   animation: showChat 1s;
   animation-fill-mode: forwards;
@@ -204,13 +205,43 @@
 #jschat .body>ul {
   display: block;
   width: 100%;
-  padding-bottom: .5rem;
+  padding-bottom: 1rem;
 }
 
 #jschat .body>ul>li {
   display: block;
   animation: displayMessage linear 1s;
   margin: .7rem;
+}
+
+#jschat .body>ul.typing:after {
+  content: "•••";
+  display: block;
+  position: absolute;
+  bottom: .4rem;
+  left: 1rem;
+  animation: typing infinite alternate linear 500ms, displayTyping linear 500ms;
+  font-size: 14px;
+  letter-spacing: .2rem;
+}
+
+@keyframes typing {
+  0% {
+    color: #000;
+  }
+
+  100% {
+    color: #AAA;
+  }
+}
+@keyframes displayTyping {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes displayMessage {
@@ -243,7 +274,7 @@
   min-width: 100px;
   max-width: 70%;
   background: #FFF;
-  box-shadow: .2rem .2rem .5rem #999;
+  box-shadow: .2rem .2rem .3rem #BBB;
   border-radius: .5rem;
 }
 

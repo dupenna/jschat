@@ -14,7 +14,7 @@
   <script type="text/javascript">
     const script = [{
       name: 'welcome',
-      value: 'Welcome to ${company_name}!',
+      value: 'Welcome to ${company-name}!',
       delay_before: 1500,
       goto: 'get-name',
     }, {
@@ -44,6 +44,7 @@
       params: {
         input: {
           name: 'email',
+          type: 'email',
           placeholder: 'Type your e-maill...',
           goto: 'get-birth',
         }
@@ -133,7 +134,7 @@
       script: script,
       start_script: 'welcome',
       values: {
-        'company_name': 'JSChat',
+        'company-name': 'JSChat',
       },
     };
   </script>

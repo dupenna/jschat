@@ -60,7 +60,7 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
 
       $(jschat.el.chat).empty();
 
-      $(jschat.el.form).target.reset();
+      jschat.el.form.reset();
       $(jschat.el.form).addClass('disabled');
       $(jschat.el.input).attr('placeholder', '');
       $(jschat.el.input).attr('type', 'text');
@@ -74,6 +74,8 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
 
     jschat.fn.sendMessage = (text, from, params = {}) => {
       const time = new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0');
+
+      $(jschat.el.chat).removeClass('typing');
 
       const message = $('<li>')
         .addClass(from)
@@ -164,7 +166,7 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
 
       const current = steps[0];
       const next = current.goto;
-      const delay = current.delay_before || 0;
+      const delay = current.delay_before || (current.value.length * 20) + 500;
       let text = current.value;
 
       if (matches = text.match(/\$\{[^}]*\}/g)) {
@@ -178,11 +180,15 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
       if (current.params) {
         params = current.params;
       }
-
+      
       window.setTimeout(() => {
-        jschat.fn.sendMessage(text, 'bot', params);
-        if (next) jschat.fn.goto(next);
-      }, delay);
+        $(jschat.el.chat).addClass('typing');
+
+        window.setTimeout(() => {
+          jschat.fn.sendMessage(text, 'bot', params);
+          if (next) jschat.fn.goto(next);
+        }, delay);
+      }, 800);
     }
 
     jschat.regex = {

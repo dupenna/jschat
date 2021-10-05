@@ -187,7 +187,7 @@ The responses from both **multiple choice messages** and **user input messages**
 },
 {
   "name": "next-step",
-  "value": "Hi, ${user-name}!",
+  "value": "Hi, ${name}!",
   "delay_before": 1500,
   "goto": "another-step"
 }
