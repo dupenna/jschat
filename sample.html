@@ -9,7 +9,9 @@
 
 <body>
 
-  <button id="open_chat">chat</button>
+  <button id="chat_open">open chat</button>
+
+  <div id="chat_result"></div>
 
   <script type="text/javascript">
     const script = [{
@@ -113,7 +115,13 @@
       name: 'exit',
       value: 'Bye bye!',
       delay_before: 1500,
-      goto: null,
+      goto: (values, goto) => { 
+        let result = '';
+        Object.entries(values).forEach(([key, value]) => {
+          result += (`${key}: ${value}\n`);
+        });
+        document.getElementById('chat_result').innerText = result; 
+      }
     }, {
       name: 'nok',
       value: 'No problem. Let\'s try again.',
@@ -130,7 +138,7 @@
         secondary: '#FFF',
         text: '#FFF',
       },
-      triggers:	'#open_chat',
+      triggers:	'#chat_open',
       script: script,
       start_script: 'welcome',
       values: {

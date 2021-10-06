@@ -160,6 +160,11 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
     }
 
     jschat.fn.goto = (target) => {
+      if (typeof target == 'function') {
+        target(jschat.values, jschat.fn.goto);
+        return;
+      }
+
       const steps = script.filter(step => step.name == target);
 
       if (steps.length === 0) return;
