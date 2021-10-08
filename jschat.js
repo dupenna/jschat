@@ -160,8 +160,8 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
     }
 
     jschat.fn.goto = (target) => {
-      if (typeof target == 'function') {
-        target(jschat.values, jschat.fn.goto);
+      if (typeof target == 'object') {
+        target.callback(jschat.values, jschat.fn.goto, target.step);
         return;
       }
 
