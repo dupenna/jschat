@@ -55,21 +55,25 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
     }
 
     jschat.fn.restart = () => {
-      $(jschat.el.main).addClass('open');
-      $(jschat.el.main).removeClass('close');
+      $(jschat.el.main).remove();
+      jschat.fn.load();
+      jschat.fn.open();
 
-      $(jschat.el.chat).empty();
+      // $(jschat.el.main).addClass('open');
+      // $(jschat.el.main).removeClass('close');
 
-      jschat.el.form.reset();
-      $(jschat.el.form).addClass('disabled');
-      $(jschat.el.input).attr('placeholder', '');
-      $(jschat.el.input).attr('type', 'text');
-      $(jschat.el.input).blur();
+      // $(jschat.el.chat).empty();
 
-      $(jschat.el.input).addClass('disabled');
+      // jschat.el.form.reset();
+      // $(jschat.el.form).addClass('disabled');
+      // $(jschat.el.input).attr('placeholder', '');
+      // $(jschat.el.input).attr('type', 'text');
+      // $(jschat.el.input).blur();
 
-      jschat.started = true;
-      jschat.fn.goto(jschat.start_script);
+      // $(jschat.el.input).addClass('disabled');
+
+      // jschat.started = true;
+      // jschat.fn.goto(jschat.start_script);
     }
 
     jschat.fn.sendMessage = (text, from, params = {}) => {
@@ -108,7 +112,7 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
                 $(e.target).addClass('selected');
                 $(e.target.parentNode.parentNode).addClass('selected');
                 jschat.fn.sendMessage(option.text, 'me');
-                jschat.values[option.name] = option.label;
+                jschat.vl[option.name] = option.label;
                 jschat.fn.goto(option.goto);
               })
             )
@@ -142,7 +146,7 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
 
           }
 
-          jschat.values[input.name] = text;
+          jschat.vl[input.name] = text;
           jschat.fn.sendMessage(text, 'me');
           $(jschat.el.form).addClass('disabled');
           $(jschat.el.input).attr('placeholder', '');
@@ -151,7 +155,6 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
           e.target.reset();
           jschat.el.form.removeEventListener('submit', listener);
           jschat.fn.goto(input.goto);
-          console.log(jschat.values);
         })
 
       }
@@ -161,7 +164,7 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
 
     jschat.fn.goto = (target) => {
       if (typeof target == 'object') {
-        target.callback(jschat.values, jschat.fn.goto, target.step);
+        target.callback(jschat.vl, jschat.fn.goto, target.step);
         return;
       }
 
@@ -172,12 +175,13 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
       const current = steps[0];
       const next = current.goto;
       const delay = current.delay_before || (current.value.length * 20) + 500;
+      // const delay = 0;
       let text = current.value;
 
       if (matches = text.match(/\$\{[^}]*\}/g)) {
         matches.forEach(match => {
           value_name = match.replace(/[${}]/g, '');
-          text = text.replace(match, jschat.values[value_name]);
+          text = text.replace(match, jschat.vl[value_name]);
         })
       }
 
@@ -256,9 +260,9 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
       jschat.started = false;
 
       const values = jschat.values;
-      jschat.values = [];
+      jschat.vl = [];
       Object.entries(values).forEach(([key, value]) => {
-        jschat.values[key] = value;
+        jschat.vl[key] = value;
       });
 
       document.querySelectorAll(jschat.triggers).forEach(el => {
