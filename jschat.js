@@ -168,7 +168,7 @@ require('https://code.jquery.com/jquery-3.6.0.min.js', () => {
         return;
       }
 
-      const steps = script.filter(step => step.name == target);
+      const steps = jschat.script.filter(step => step.name == target);
 
       if (steps.length === 0) return;
 
